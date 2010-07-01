@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>icons/refresh-icon-32x32.png</file>
+        <file>icons/save-icon-32x32.png</file>
+        <file>icons/clipboard-icon-32x32.png</file>
+        <file>icons/sort-az-icon-32x32.png</file>
+    </qresource>
+</RCC>
