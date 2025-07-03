@@ -1,8 +1,8 @@
 #include "windowsregistry.h"
 
 //location in the registry of the path environment variable
-static const char* keyName = "SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment";
-static const char* keyValue = "PATH";
+static const char* keyName = "Environment";
+static const char* keyValue = "Path";
 
 const char* WindowsRegistry::GetPathEnvironmentVariable()
 {
@@ -10,7 +10,7 @@ const char* WindowsRegistry::GetPathEnvironmentVariable()
 
 	//open the key
 	HKEY hkey;
-	if (RegOpenKeyEx(HKEY_LOCAL_MACHINE, keyName, 0, KEY_ALL_ACCESS, &hkey) == ERROR_SUCCESS)
+    if (RegOpenKeyEx(HKEY_CURRENT_USER, keyName, 0, KEY_ALL_ACCESS, &hkey) == ERROR_SUCCESS)
 	{
 		//get type and size
 		DWORD dwValueLength;
@@ -40,7 +40,7 @@ bool WindowsRegistry::SetPathEnvironmentVariable(const char* aPath)
 {
 	//open the key
 	HKEY hkey;
-	LONG result = RegOpenKeyEx(HKEY_LOCAL_MACHINE, keyName, 0, KEY_ALL_ACCESS, &hkey);
+    LONG result = RegOpenKeyEx(HKEY_CURRENT_USER, keyName, 0, KEY_ALL_ACCESS, &hkey);
 
 	//set the new path value. The size of the data is the length of the string + 1 for the null terminator
 	const BYTE* data = reinterpret_cast<const BYTE*>(aPath);
